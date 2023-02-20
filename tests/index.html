@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>CQT.js testing page</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        #visualizer {
+            background-color: #0c0e14;
+            height: 70vh;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        #notes {
+            bottom: 0;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            /* height: 100px; */
+            background-color: #222222;
+            z-index: 100;
+        }
+   </style>
+   <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+    <div id="menu">
+        <div id="buttons">
+            <label>Actions</label> <hr>
+        </div>
+    </div>
+
+    <div id="container">
+        <canvas width="100%" height="50vh" style="margin: 0; padding: 0;" id="visualizer"></canvas>
+        <canvas style="margin: 0; padding: 0;" id="notes"></canvas>
+    </div>
+
+    <audio id="player" src="./samples/Piano_Octave.webm" controls autoplay loop></audio>
+    <!-- <audio id="player" src="./samples/Piano_C4.mp3" controls autoplay loop></audio> -->
+    <!-- <audio id="player" src="./samples/Piano-C6.mp3" controls autoplay loop></audio> -->
+    <!-- <audio id="player" src="./samples/440Hz.mp3" controls autoplay loop></audio> -->
+    <!-- <audio id="player" src="./samples/1000Hz.mp3" controls autoplay loop></audio> -->
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

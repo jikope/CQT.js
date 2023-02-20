@@ -1,0 +1,53 @@
+#+TITLE: Contants Q Transform(CQT) in javascript using WASM
+#+PROPERTY: header-args:python :session
+#+OPTIONS: ^:nil toc:nil
+
+* Building
+#+begin_src sh
+chmod x+ build.sh 
+./build.sh
+#+end_src
+
+This will output =cqt.wasm=. You can see the example of using this module in =/test/cqt.mjs=. =cqt.mjs= and =cqt.wasm= must be in the same folder by default or you can change path of wasm file in =cqt.mjs=.
+
+* Usage
+You can find example of visualizer using this library being used in visualizer in =tests= folder.
+
+#+begin_src js
+// Import js module
+import DSP from "./cqt.mjs";
+
+const fs = 48000; // or get it from audio context
+const bins_per_octave = 24;
+const n_bins = bins_per_octave * 8; // 192
+const f_min = 30.87; // # B0 so index 1 start C1
+
+// Init CQT kernel
+let dsp = DSP.init(fs, bins_per_octave, n_bins, f_min);
+analyzer.fftSize = dsp.fft_size; // Make sure the fft size same
+
+// Fill input buffer with time-domain data 
+analyzer.getFloatTimeDomainData(dsp.input);
+
+// Calculate CQT
+dsp.calc_cqt();
+
+// Results of CQT will be available in dsp.output buffer
+console.log(dsp.output) // -> array(192) Scaled in dBFS. or do you want complex value? 
+#+end_src
+
+* References
+Thank you to these people for making their work accessible.
+
+To understand how CQT works
+- [[https://www.researchgate.net/publication/230554907_An_efficient_algorithm_for_the_calculation_of_a_constant_Q_transform][An efficient algorithm for the calculation of a constant Q transform]]
+- [[https://doc.ml.tu-berlin.de/bbci/material/publications/Bla_constQ.pdf][The Constant Q Transform [Benjamin Blankertz]]]  
+
+To implement time-domain CQT kernel
+- [[https://arxiv.org/pdf/1912.12055.pdf][nnAudio: An on-the-fly GPU Audio to Spectrogram Conversion Toolbox Using 1D Convolutional Neural Networks]]  
+- https://github.com/KinWaiCheuk/nnAudio
+
+To structure and build project for WASM
+- https://github.com/mfcc64/showcqt-js
+- https://github.com/tsoding/snake-c-wasm
+- https://github.com/simd-everywhere/simde
